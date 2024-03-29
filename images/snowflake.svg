@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="256" height="256" viewBox="0 0 256 256" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- unit -->
+  <defs>
+    <g id="unit">
+      <path d="M119.5,128
+               l0,-48.5 l-23,-13.5 l0,-17 l23,13.5 l0,-26
+               l17,0
+               l0,26 l 23,-13.5 l0,17 l-23,13.5 l0,48.5
+               z" fill="#9E9E9E"/> <!-- Grey 500 -->
+    </g>
+    <g id="unit2">
+      <use xlink:href="#unit"/>
+      <use xlink:href="#unit" transform="scale(1,-1)translate(0,-256)"/>
+    </g>
+    <g id="unit6">
+      <use xlink:href="#unit2"/>
+      <use xlink:href="#unit2" transform="rotate(60,128,128)"/>
+      <use xlink:href="#unit2" transform="rotate(-60,128,128)"/>
+    </g>
+    <g id="snowflake">
+      <use xlink:href="#unit6" transform="rotate(15,128,128)"/>
+    </g>
+  </defs>
+  <!-- snowflake -->
+  <use xlink:href="#snowflake"/>
+</svg>
