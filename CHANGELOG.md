@@ -1,9 +1,8 @@
 # Change Log
 
-All notable changes to the "vsc-yutils" extension will be documented in this file.
+## [0.0.1] - 2024-03-30
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+- `Yutils: Open Emacs`
+- `Yutils: Open Space`
+- `Yutils: Prefixed Paste`
+- `Yutils: Recenter`

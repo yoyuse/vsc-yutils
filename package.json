@@ -20,8 +20,39 @@
   "contributes": {
     "commands": [
       {
-        "command": "vsc-yutils.helloWorld",
-        "title": "Hello World"
+        "command": "vsc-yutils.open-emacs",
+        "title": "Yutils: Open Emacs"
+      },
+      {
+        "command": "vsc-yutils.open-space",
+        "title": "Yutils: Open Space"
+      },
+      {
+        "command": "vsc-yutils.prefixed-paste",
+        "title": "Yutils: Prefixed Paste"
+      },
+      {
+        "command": "vsc-yutils.recenter",
+        "title": "Yutils: Recenter"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vsc-yutils.open-space",
+        "key": "shift+space",
+        "mac": "cmd+shift+space",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vsc-yutils.prefixed-paste",
+        "key": "ctrl+shift+v",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vsc-yutils.recenter",
+        "key": "ctrl+alt+l",
+        "mac": "ctrl+l",
+        "when": "editorTextFocus"
       }
     ]
   },
