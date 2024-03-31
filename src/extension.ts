@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { openEmacs } from './open-emacs';
+import { openEmacs, openInOpen } from './open-emacs';
 import { openSpace, prefixedPaste, recenter } from './yutils';
 
 // This method is called when your extension is activated
@@ -27,6 +27,12 @@ export function activate(context: vscode.ExtensionContext) {
 	// Open Emacs
 	disposable = vscode.commands.registerCommand('vsc-yutils.open-emacs', () => {
 		openEmacs().catch(e => vscode.window.showErrorMessage(e));
+	});
+	context.subscriptions.push(disposable);
+	//
+	// Open In Open
+	disposable = vscode.commands.registerCommand('vsc-yutils.open-in-open', () => {
+		openInOpen().catch(e => vscode.window.showErrorMessage(e));
 	});
 	context.subscriptions.push(disposable);
 	//

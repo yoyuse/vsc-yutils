@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+/*
+// カーソルの右にスペースを挿入
 export const openSpace = async (editor: vscode.TextEditor) => {
     await editor.edit((editorEdit) => {
         editor.selections.map(selection => {
@@ -10,6 +12,23 @@ export const openSpace = async (editor: vscode.TextEditor) => {
     });
     await vscode.commands.executeCommand('cursorMove', { to: 'left', by: 'character' });
 };
+/*/
+// カーソルの両側にスペースを挿入
+export const openSpace = async (editor: vscode.TextEditor) => {
+    let select: boolean = false; // XXX: FIXME
+    await editor.edit((editorEdit) => {
+        const selections = editor.selections.map(selection => {
+            const range = new vscode.Range(selection.start, selection.end);
+            if (!range.isEmpty) { select = true; }
+            editorEdit.insert(range.start.translate(0, 0), ' ');
+            editorEdit.insert(range.end.translate(0, 0), ' ');
+            return new vscode.Selection(range.start.translate(0, 0), range.end.translate(0, 0));
+        });
+        editor.selections = selections;
+    });
+    await vscode.commands.executeCommand('cursorMove', { to: 'left', by: 'character', select: select });
+};
+//*/
 
 export const prefixedPaste = async (editor: vscode.TextEditor) => {
     // クリップボードからテキストを取得
@@ -37,7 +56,28 @@ export const prefixedPaste = async (editor: vscode.TextEditor) => {
     });
 };
 
+/*
 export const recenter = (editor: vscode.TextEditor) => {
     const position = editor.selection.active;
     editor.revealRange(new vscode.Range(position, position), vscode.TextEditorRevealType.InCenter);
 };
+/*/
+let revealType = vscode.TextEditorRevealType.InCenter;
+let timeoutId: NodeJS.Timeout | undefined = undefined;
+export const recenter = (editor: vscode.TextEditor) => {
+    clearTimeout(timeoutId);
+    //
+    const position = editor.selection.active;
+    editor.revealRange(new vscode.Range(position, position), revealType);
+    //
+    if (revealType === vscode.TextEditorRevealType.InCenter) {
+        revealType = vscode.TextEditorRevealType.AtTop;
+    } else {
+        revealType = vscode.TextEditorRevealType.InCenter;
+    }
+    //
+    timeoutId = setTimeout(() => {
+        revealType = vscode.TextEditorRevealType.InCenter;
+    }, 2000);
+};
+//*/
