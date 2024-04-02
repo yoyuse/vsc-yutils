@@ -1,34 +1,18 @@
 import * as vscode from 'vscode';
 
-/*
-// カーソルの右にスペースを挿入
-export const openSpace = async (editor: vscode.TextEditor) => {
-    await editor.edit((editorEdit) => {
-        editor.selections.map(selection => {
-            const range = new vscode.Range(selection.start, selection.end);
-            editorEdit.replace(range, '');
-            editorEdit.insert(range.end.translate(0, 0), ' ');
-        });
-    });
-    await vscode.commands.executeCommand('cursorMove', { to: 'left', by: 'character' });
-};
-/*/
 // カーソルの両側にスペースを挿入
 export const openSpace = async (editor: vscode.TextEditor) => {
-    let select: boolean = false; // XXX: FIXME
+    const selections = editor.selections;
     await editor.edit((editorEdit) => {
-        const selections = editor.selections.map(selection => {
-            const range = new vscode.Range(selection.start, selection.end);
-            if (!range.isEmpty) { select = true; }
-            editorEdit.insert(range.start.translate(0, 0), ' ');
-            editorEdit.insert(range.end.translate(0, 0), ' ');
-            return new vscode.Selection(range.start.translate(0, 0), range.end.translate(0, 0));
+        editor.selections.map(async (selection) => {
+            editorEdit.insert(selection.anchor, ' ');
+            editorEdit.insert(selection.active, ' ');
         });
-        editor.selections = selections;
     });
-    await vscode.commands.executeCommand('cursorMove', { to: 'left', by: 'character', select: select });
+    editor.selections = selections.map(selection => {
+        return new vscode.Selection(selection.anchor.translate(0, 1), selection.active.translate(0, 1));
+    });
 };
-//*/
 
 export const prefixedPaste = async (editor: vscode.TextEditor) => {
     // クリップボードからテキストを取得
@@ -81,3 +65,17 @@ export const recenter = (editor: vscode.TextEditor) => {
     }, 2000);
 };
 //*/
+
+// 行末の semicolon (json の場合は comma) をトグル
+// based on https://github.com/enyancc/vscode-ext-trailing-semicolon
+export const trailingPunctuation = (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+    const cursorPosition = textEditor.selection.active;
+    const line = textEditor.document.lineAt(cursorPosition);
+    const languageId = textEditor.document.languageId;
+    const punctuation = /^json/.test(languageId) ? ',' : ';';
+    if (line.text[line.text.length - 1] === punctuation) {
+        edit.delete(new vscode.Range(line.range.end.translate(0, -1), line.range.end));
+    } else {
+        edit.insert(line.range.end, punctuation);
+    }
+};

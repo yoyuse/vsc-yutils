@@ -32,6 +32,14 @@ Scroll so that current line is in middle (or top) of viewport
 
 * `ctrl+l` (macOS) or `ctrl+alt+l` (Windows and Linux)
 
+### `Yutils: Trailing Punctuation`
+
+Toggle trailing semicolon (or comma for JSON).
+
+(Based on [enyancc/vscode-ext-trailing-semicolon: Trailing Semicolon extension for VSCode](https://github.com/enyancc/vscode-ext-trailing-semicolon))
+
+* `cmd+;` (macOS) or `ctrl+alt+;` (Windows and Linux)
+
 ## Requirements
 
 * VS Code 1.75.0 or later

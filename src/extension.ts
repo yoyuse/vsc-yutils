@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { openEmacs, openInOpen } from './open-emacs';
-import { openSpace, prefixedPaste, recenter } from './yutils';
+import { openSpace, prefixedPaste, recenter, trailingPunctuation } from './yutils';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -37,10 +37,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 	//
 	// Open Space
-	disposable = vscode.commands.registerCommand('vsc-yutils.open-space', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (!editor) { return; }
-		openSpace(editor);
+	disposable = vscode.commands.registerTextEditorCommand('vsc-yutils.open-space', (textEditor: vscode.TextEditor, _: vscode.TextEditorEdit) => {
+		return openSpace(textEditor);
 	});
 	context.subscriptions.push(disposable);
 	//
@@ -57,6 +55,12 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor = vscode.window.activeTextEditor;
 		if (!editor) { return; }
 		recenter(editor);
+	});
+	context.subscriptions.push(disposable);
+	//
+	// Trailing Punctuation
+	disposable = vscode.commands.registerTextEditorCommand('vsc-yutils.trailing-punctuation', (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+		return trailingPunctuation(textEditor, edit);
 	});
 	context.subscriptions.push(disposable);
 }

@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.0.3] - 2024-04-02
+
+- `Yutils: Trailing Punctuation`
+- refactor `openSpace`
+
 ## [0.0.2] - 2024-03-31
 
 - `Yutils: Open In Open`
