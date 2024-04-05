@@ -32,6 +32,12 @@ Scroll so that current line is in middle (or top) of viewport
 
 * `ctrl+l` (macOS) or `ctrl+alt+l` (Windows and Linux)
 
+### `Yutils: Save Modified`
+
+Save file only if file is modified
+
+* `ctrl+s` (macOS) or `ctrl+alt+s` (Windows and Linux)
+
 ### `Yutils: Trailing Punctuation`
 
 Toggle trailing semicolon (or comma for JSON).

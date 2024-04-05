@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { openEmacs, openInOpen } from './open-emacs';
-import { openSpace, prefixedPaste, recenter, trailingPunctuation } from './yutils';
+import { openSpace, prefixedPaste, recenter, saveModified, trailingPunctuation } from './yutils';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -56,6 +56,20 @@ export function activate(context: vscode.ExtensionContext) {
 		if (!editor) { return; }
 		recenter(editor);
 	});
+	context.subscriptions.push(disposable);
+	//
+	// Save Modified
+	/*
+	disposable = vscode.commands.registerCommand('vsc-yutils.save-modified', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) { return; }
+		saveModified(editor);
+	});
+	/*/
+	disposable = vscode.commands.registerTextEditorCommand('vsc-yutils.save-modified', (textEditor: vscode.TextEditor, _: vscode.TextEditorEdit) => {
+		return saveModified(textEditor);
+	});
+	//*/
 	context.subscriptions.push(disposable);
 	//
 	// Trailing Punctuation

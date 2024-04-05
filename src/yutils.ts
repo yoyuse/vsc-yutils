@@ -66,6 +66,23 @@ export const recenter = (editor: vscode.TextEditor) => {
 };
 //*/
 
+// ファイルが変更されているときだけ保存する (Emacs の C-x C-s や Vim の :update 相当)
+export const saveModified = (textEditor: vscode.TextEditor) => {
+    const textDocument = textEditor.document;
+    const message = (str: string) => { vscode.window.setStatusBarMessage(str, 10000); };
+    if (textDocument.isDirty) {
+        textDocument.save().then((success: boolean) => {
+            if (success) {
+                message(`Wrote ${textDocument.fileName}`);
+            } else {
+                message("Save Modified failed");
+            }
+        });
+    } else {
+        message("(No changes need to be saved)");
+    }
+};
+
 // 行末の semicolon (json の場合は comma) をトグル
 // based on https://github.com/enyancc/vscode-ext-trailing-semicolon
 export const trailingPunctuation = (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {

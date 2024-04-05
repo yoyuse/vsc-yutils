@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/yoyuse/vsc-yutils.git"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -40,6 +40,10 @@
         "title": "Yutils: Recenter"
       },
       {
+        "command": "vsc-yutils.save-modified",
+        "title": "Yutils: Save Modified"
+      },
+      {
         "command": "vsc-yutils.trailing-punctuation",
         "title": "Yutils: Trailing Punctuation"
       }
@@ -60,6 +64,12 @@
         "command": "vsc-yutils.recenter",
         "key": "ctrl+alt+l",
         "mac": "ctrl+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vsc-yutils.save-modified",
+        "key": "ctrl+alt+s",
+        "mac": "ctrl+s",
         "when": "editorTextFocus"
       },
       {
