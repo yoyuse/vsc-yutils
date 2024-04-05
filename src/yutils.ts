@@ -40,10 +40,17 @@ export const prefixedPaste = async (editor: vscode.TextEditor) => {
     });
 };
 
-/*
+//*
+let recenterAt = 'center';
+let timeoutId: NodeJS.Timeout | undefined = undefined;
 export const recenter = (editor: vscode.TextEditor) => {
-    const position = editor.selection.active;
-    editor.revealRange(new vscode.Range(position, position), vscode.TextEditorRevealType.InCenter);
+    clearTimeout(timeoutId);
+    const line = editor.selection.active.line;
+    vscode.commands.executeCommand('revealLine', {lineNumber: line, at: recenterAt});
+    if (recenterAt === 'center') { recenterAt = 'top'; }
+    else if (recenterAt === 'top') { recenterAt = 'bottom'; }
+    else { recenterAt = 'center'; }
+    timeoutId = setTimeout(() => { recenterAt = 'center'; }, 2000);
 };
 /*/
 let revealType = vscode.TextEditorRevealType.InCenter;

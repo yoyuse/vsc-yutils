@@ -51,11 +51,17 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 	//
 	// Recenter
+	/*
 	disposable = vscode.commands.registerCommand('vsc-yutils.recenter', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (!editor) { return; }
 		recenter(editor);
 	});
+	/*/
+	disposable = vscode.commands.registerTextEditorCommand('vsc-yutils.recenter', (textEditor: vscode.TextEditor, _: vscode.TextEditorEdit) => {
+		return recenter(textEditor);
+	});
+	//*/
 	context.subscriptions.push(disposable);
 	//
 	// Save Modified

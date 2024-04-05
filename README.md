@@ -28,7 +28,7 @@ Paste with prefix (which is string from line beginning upto cursor) at each line
 
 ### `Yutils: Recenter`
 
-Scroll so that current line is in middle (or top) of viewport
+Scroll so that current line is in middle (or top, bottom) of viewport
 
 * `ctrl+l` (macOS) or `ctrl+alt+l` (Windows and Linux)
 
@@ -48,7 +48,7 @@ Toggle trailing semicolon (or comma for JSON).
 
 ## Requirements
 
-* VS Code 1.75.0 or later
+* VS Code 1.87.0 or later
 * `/usr/bin/which`
 * `emacsclient`
 * `open` or `xdg-open`
