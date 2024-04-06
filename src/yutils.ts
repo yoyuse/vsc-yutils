@@ -40,7 +40,7 @@ export const prefixedPaste = async (editor: vscode.TextEditor) => {
     });
 };
 
-//*
+/*
 let recenterAt = 'center';
 let timeoutId: NodeJS.Timeout | undefined = undefined;
 export const recenter = (editor: vscode.TextEditor) => {
@@ -53,23 +53,20 @@ export const recenter = (editor: vscode.TextEditor) => {
     timeoutId = setTimeout(() => { recenterAt = 'center'; }, 2000);
 };
 /*/
-let revealType = vscode.TextEditorRevealType.InCenter;
-let timeoutId: NodeJS.Timeout | undefined = undefined;
-export const recenter = (editor: vscode.TextEditor) => {
-    clearTimeout(timeoutId);
-    //
-    const position = editor.selection.active;
-    editor.revealRange(new vscode.Range(position, position), revealType);
-    //
-    if (revealType === vscode.TextEditorRevealType.InCenter) {
-        revealType = vscode.TextEditorRevealType.AtTop;
+let recenterAt = 'center';
+export let recenterAtCenter = true;
+export const recenterReset = () => { recenterAtCenter = true; };
+export const recenter = async (editor: vscode.TextEditor) => {
+    if (recenterAtCenter) {
+        recenterAt = 'center';
     } else {
-        revealType = vscode.TextEditorRevealType.InCenter;
+        if (recenterAt === 'center') { recenterAt = 'top'; }
+        else if (recenterAt === 'top') { recenterAt = 'bottom'; }
+        else { recenterAt = 'center'; }
     }
-    //
-    timeoutId = setTimeout(() => {
-        revealType = vscode.TextEditorRevealType.InCenter;
-    }, 2000);
+    const line = editor.selection.active.line;
+    await vscode.commands.executeCommand('revealLine', {lineNumber: line, at: recenterAt});
+    recenterAtCenter = false;
 };
 //*/
 

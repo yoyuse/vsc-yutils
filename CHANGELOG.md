@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.6] - 2024-04-06
+
+- improve `recenter`
+
 ## [0.0.5] - 2024-04-06
 
 - rewrite `recenter` better

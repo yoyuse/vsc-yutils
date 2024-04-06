@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { openEmacs, openInOpen } from './open-emacs';
-import { openSpace, prefixedPaste, recenter, saveModified, trailingPunctuation } from './yutils';
+import { openSpace, prefixedPaste, recenter, recenterReset, saveModified, trailingPunctuation } from './yutils';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -61,6 +61,8 @@ export function activate(context: vscode.ExtensionContext) {
 	disposable = vscode.commands.registerTextEditorCommand('vsc-yutils.recenter', (textEditor: vscode.TextEditor, _: vscode.TextEditorEdit) => {
 		return recenter(textEditor);
 	});
+	vscode.window.onDidChangeTextEditorSelection((_) => { recenterReset(); });
+	vscode.window.onDidChangeTextEditorVisibleRanges((_) => { recenterReset(); });
 	//*/
 	context.subscriptions.push(disposable);
 	//
